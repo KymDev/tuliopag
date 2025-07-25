@@ -20,6 +20,8 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="favicon.ico" type="icon">
     <style>
         :root {
             --dark-bg: #121212;          /* Fundo escuro principal */
@@ -82,6 +84,52 @@
         .logo-img {
             height: 60px; /* Altura do logo - ajuste conforme necessário */
             width: auto;
+            transition: var(--transition);
+        }
+        
+        /* Menu de navegação */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
         /* Hero Section - Carrossel */
@@ -180,23 +228,23 @@
         
         /* Imagens de exemplo - substitua pelas suas */
         .slide-1 {
-            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070') center/cover;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('slides/slide1.jpg') center/cover;
         }
         
         .slide-2 {
-            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070') center/cover;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('slides/slide2.jpg') center/cover;
         }
         
         .slide-3 {
-            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('https://images.unsplash.com/photo-1549060279-7e168fce7090?q=80&w=2070') center/cover;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('slides/slide3.jpg') center/cover;
         }
         
         .slide-4 {
-            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?q=80&w=2069') center/cover;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('slides/slide4.jpg') center/cover;
         }
         
         .slide-5 {
-            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1964') center/cover;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('slides/slide5.jpg') center/cover;
         }
         
         /* Courses Section */
@@ -449,15 +497,17 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             height: 450px;
-            background: linear-gradient(135deg, var(--accent), var(--dark-card));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 5rem;
-            color: rgba(18, 18, 18, 0.2);
-            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent), var(--dark-card)); /* Fallback */
         }
-        
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .about-text h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.2rem;
@@ -663,12 +713,26 @@
             
             .about-image {
                 height: 350px;
+                max-width: 500px;
+                margin: 0 auto;
             }
         }
         
         @media (max-width: 768px) {
             nav ul {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+            
+            nav ul.show {
+                display: flex;
             }
             
             .mobile-menu-btn {
@@ -683,6 +747,7 @@
                 max-width: 100%;
                 margin: 0 auto;
                 background: rgba(18, 18, 18, 0.9);
+                padding: 25px;
             }
             
             .carousel-slide {
@@ -694,7 +759,7 @@
             }
             
             .logo-img {
-                height: 250px;
+                height: 80px;
             }
         }
         
@@ -718,6 +783,14 @@
             .hero-description {
                 font-size: 1.1rem;
             }
+            
+            .course-header {
+                padding: 20px;
+            }
+            
+            .course-body {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -730,7 +803,7 @@
                 <img src="logo.png" alt="Túlio Rodrigues" class="logo-img">
             </div>
             <nav>
-                <ul>
+                <ul id="navMenu">
                     <li><a href="#home">Início</a></li>
                     <li><a href="#cursos">Cursos</a></li>
                     <li><a href="#sobre">Sobre</a></li>
@@ -738,7 +811,7 @@
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
             </nav>
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -889,7 +962,7 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <div>TR</div>
+                    <img src="perfiltulio.png" alt="Túlio Rodrigues" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 200 200%22><rect width=%22200%22 height=%22200%22 fill=%22%23ff7a00%22/><text x=%22100%22 y=%22100%22 font-size=%2250%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 fill=%22%23000%22>TR</text></svg>';">
                 </div>
                 <div class="about-text">
                     <h2>Túlio Rodrigues</h2>
@@ -898,9 +971,11 @@
                     <p>Minha missão é democratizar o acesso à informação de qualidade sobre saúde e fitness, desmistificando conceitos complexos e oferecendo soluções práticas para pessoas reais.</p>
                     
                     <div class="qualifications">
-                        <div class="qualification-badge">Bacharel em Educação Física</div>
+                        <div class="qualification-badge">Bacharel em Educação Física</div> 
+                        <div class="qualification-badge">Fitness Coach</div>
                         <div class="qualification-badge">Nutrição Esportiva</div>
                         <div class="qualification-badge">Treinamento Funcional</div>
+                       
                     </div>
                 </div>
             </div>
@@ -961,12 +1036,10 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Túlio Rodrigues</h3>
-                    <p>Transformando vidas através da educação física com métodos científicos e acessíveis.</p>
+                    <p>Sua melhor versão, sem enrolação.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/tulio_ret10/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/tulio.ret.2025"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
                 
@@ -977,6 +1050,7 @@
                         <li><a href="#"><i class="fas fa-arrow-right"></i> Treino em Casa para Iniciantes</a></li>
                         <li><a href="#"><i class="fas fa-arrow-right"></i> Nutrição Esportiva</a></li>
                         <li><a href="#"><i class="fas fa-arrow-right"></i> Treino Avançado</a></li>
+                        
                     </ul>
                 </div>
                 
@@ -985,7 +1059,7 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fab fa-whatsapp"></i>
-                            <span>(33) 99999-9999</span>
+                            <span>(33) 99943-5408</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
@@ -993,7 +1067,7 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Jequitinhonha, MG</span>
+                            <span>Belo Horizonte / Jequitinhonha, MG</span>
                         </div>
                     </div>
                 </div>
@@ -1031,7 +1105,7 @@
         
         // Função para abrir o WhatsApp com mensagem pré-definida
         function buyCourse(courseName) {
-            const phoneNumber = "5533999999999"; // Substitua pelo número real
+            const phoneNumber = "5533999435408"; // Substitua pelo número real
             const message = `Olá Túlio, vim pelo site e gostaria de comprar o curso: ${courseName}. Pode me informar como proceder?`;
             
             const encodedMessage = encodeURIComponent(message);
@@ -1044,18 +1118,18 @@
         }
         
         // Menu mobile toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('nav ul');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
         
         mobileMenuBtn.addEventListener('click', () => {
-            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            navMenu.classList.toggle('show');
         });
         
         // Fechar menu ao clicar em um item
         document.querySelectorAll('nav ul li a').forEach(item => {
             item.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
-                    navMenu.style.display = 'none';
+                    navMenu.classList.remove('show');
                 }
             });
         });
@@ -1071,6 +1145,11 @@
                         top: target.offsetTop - 80,
                         behavior: 'smooth'
                     });
+                    
+                    // Fechar menu mobile se estiver aberto
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
+                    }
                 }
             });
         });
