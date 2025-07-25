@@ -701,6 +701,18 @@
             font-size: 0.9rem;
         }
         
+        .copyright a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .copyright a:hover {
+            text-decoration: underline;
+            color: var(--accent-light);
+        }
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero-title {
@@ -1075,9 +1087,13 @@
             
             <div class="copyright">
                 &copy; 2025 Túlio Rodrigues - Todos os direitos reservados
+                <div style="margin-top: 15px;">
+                    Criado por <a href="https://kymdev.github.io/PlayPage/" target="_blank" style="color: var(--accent); text-decoration: none;">PlayPage</a>
+                </div>
             </div>
         </div>
     </footer>
+
     
     <script>
         // Carrossel de imagens
